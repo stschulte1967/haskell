@@ -4,16 +4,16 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: dacb03c757b40de5a7479689ce7a0a843a4189edc66292dc1e2a904a8dd9a078
+-- hash: 9934a42b3c3a4728550dad71cfff842182aecffca8e376a6ca904220208d3c5d
 
-name:           chapter2
+name:           Logic
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/githubuser/chapter2#readme>
-homepage:       https://github.com/githubuser/chapter2#readme
-bug-reports:    https://github.com/githubuser/chapter2/issues
-author:         Author name here
-maintainer:     example@example.com
-copyright:      2021 Author name here
+description:    Please see the README on GitHub at <https://github.com/githubuser/Logic#readme>
+homepage:       https://github.com/githubuser/Logic#readme
+bug-reports:    https://github.com/githubuser/Logic/issues
+author:         Stephan Schulte
+maintainer:     stephan.schulte@gmail.com
+copyright:      2021 Stephan Schulte
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
@@ -23,43 +23,42 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/githubuser/chapter2
+  location: https://github.com/githubuser/Logic
 
 library
   exposed-modules:
-      Chapter2.DataTypes
-      Chapter2.Section2.Example
-      Chapter2.SimpleFunctions
-      Chapter2.Exercises
+      Logic.Intro
   other-modules:
-      Paths_chapter2
+      Paths_Logic
   hs-source-dirs:
       src
   build-depends:
       base >=4.7 && <5
   default-language: Haskell2010
 
-executable chapter2-exe
+executable Logic-exe
   main-is: Main.hs
   other-modules:
-      Paths_chapter2
+      Paths_Logic
   hs-source-dirs:
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
-    , chapter2
+      Logic
+    , base >=4.7 && <5
   default-language: Haskell2010
 
-test-suite chapter2-test
+test-suite Logic-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_chapter2
+      Paths_Logic
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
-    , chapter2
+      Logic
+    , base
+    , tasty
+    , tasty-hunit
   default-language: Haskell2010
