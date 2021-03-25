@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 3de521f4b52a94bbc59709ee3067f83856b25dac573a29ddb957c5a8f6ec63b5
+-- hash: a55071a06cfd7ef68f6dc88a10b9e16297d38dcfb68ee2acc0d57a86cbe8cc16
 
 name:           beginning
 version:        0.1.0.0
@@ -33,7 +33,10 @@ library
   hs-source-dirs:
       src
   build-depends:
-      base >=4.7 && <5
+      Euterpea
+    , HSoM
+    , base >=4.7 && <5
+  if false
   default-language: Haskell2010
 
 executable beginning-exe
@@ -44,8 +47,11 @@ executable beginning-exe
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      Euterpea
+    , HSoM
+    , base >=4.7 && <5
     , beginning
+  if false
   default-language: Haskell2010
 
 test-suite beginning-test
@@ -57,6 +63,9 @@ test-suite beginning-test
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      Euterpea
+    , HSoM
+    , base >=4.7 && <5
     , beginning
+  if false
   default-language: Haskell2010

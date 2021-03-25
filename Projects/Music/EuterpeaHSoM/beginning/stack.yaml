@@ -18,7 +18,7 @@
 # resolver: ./custom-snapshot.yaml
 # resolver: https://example.com/snapshots/2018-01-01.yaml
 resolver:
-  url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/17/7.yaml
+  url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/14/27.yaml
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -41,6 +41,22 @@ packages:
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
 #
 # extra-deps: []
+
+extra-deps:
+- git: https://github.com/Euterpea/Euterpea2.git
+  commit: 55f78907ad29ce35e7e0b5ca101b60cd0efca555
+- PortMidi-0.2.0.0
+- arrows-0.4.4.2
+- Stream-0.4.7.2
+- lazysmallcheck-0.6
+- git: https://github.com/Euterpea/HSoM.git
+  commit: 75338cbac2a3e4a2cae32448ca729de421ecd404
+- UISF-0.4.0.0
+- pure-fft-0.2.0
+
+
+#extre-deps:
+#- Euterpea-2.0.7
 
 # Override default flag values for local packages and extra-deps
 # flags: {}
