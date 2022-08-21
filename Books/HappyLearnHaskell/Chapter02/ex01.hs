@@ -1,0 +1,1 @@
+main = putStrLn "Polly was a cracker"
