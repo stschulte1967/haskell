@@ -1,0 +1,963 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+\usepackage{listings}
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Exercises of Thinking Functionally}
+\author{Stephan Schulte}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+\setlength{\parindent}{0pt}
+\begin{document}
+\maketitle
+
+\section{Chapter 01}
+
+\subsection{Exercise A}
+
+Consider the function
+
+\begin{lstlisting}
+double :: Integer -> Integer
+double x = 2*x
+\end{lstlisting}
+
+that doubles an integer. What are the values of the following expressions?
+
+\begin{lstlisting}
+map double [1,4,4,3]
+map (double . double) [1,4,4,3]
+map double []
+\end{lstlisting}
+
+Suppose sum :: [Integer] -> Integer is a function that sums a list of integers. Which of the following assertions are true and why?
+
+\begin{lstlisting}
+sum . map double = double . sum
+sum . map sum = sum . concat
+sum . sort = sum
+\end{lstlisting}
+
+You will need to recall what the function concat does. The function sort sorts a list of numbers into ascending order.
+
+\subsubsection*{Answers to Exercise A}
+
+\begin{lstlisting}
+map double [1,4,4,3] == [2, 8, 8, 6]
+map (double . double) [1,4,4,3] == [4, 16, 16, 12]
+map double [] == []
+\end{lstlisting}
+
+All the assertions are true!
+
+\subsection{Exercise B}
+
+In Haskell, functional application takes precedence over every other operator, so $double 3+4$ means $(double 3)+4$, not $double (3+4)$. Which of the following expressions is a rendering of $sin^2 \theta$ into Haskell?
+\begin{lstlisting}
+sin^2 theta		sin theta^2		(sin theta)^2
+\end{lstlisting}
+
+(Exponentiation is denoted by ($^{}$).) How would you express $sin 2\Theta/2\pi$ as a wellformed Haskell expression?
+
+\subsubsection*{Answers to Exercise B}
+
+The Haskell equivalent to$sin^2 \theta$ is $(sin theta) ^ 2$.
+
+The Haskell equivalent to $sin 2\Theta/2\pi$ would be $sin ( 2 * theta /( 2 * pi))$
+
+\subsection{Exercise C}
+
+As we said in the text, a character, i.e. an element of Char, is denoted using single quotes, and a string is denoted using double quotes. In particular the string "Hello World!" is just a much shorter way of writing the list
+\begin{lstlisting}
+['H','e','l','l','o',' ','W','o','r','l','d','!']
+\end{lstlisting}
+
+General lists can be written with brackets and commas. (By the way, parentheses are round, brackets are square, and braces are curly.) The expressions 'H' and "H" therefore have different types. What are they? What is the difference between 2001 and "2001"?
+
+The operation ++ concatenates two lists. Simplify
+
+\begin{lstlisting}
+[1,2,3] ++ [3,2,1]
+"Hello" ++ " World!"
+[1,2,3] ++ []
+"Hello" ++ "" ++ "World!"
+\end{lstlisting}
+
+\subsubsection*{Answers to Exercise C}
+The type of 'H' is Char and the type of "H" is String.
+
+\begin{lstlisting}
+[1,2,3] ++ [3,2,1] == [1,2,3,3,2,1]
+"Hello" ++ " World!" == "Hello World!"
+[1,2,3] ++ [] == [1, 2, 3]
+"Hello" ++ "" ++ "World!" == "Hello World!"
+\end{lstlisting}
+
+
+\subsection{Exercise D}
+
+In the common words example we started off by converting every letter in the text to lowercase, and then we computed the words in the text. An alternative is to do things the other way round, first computing the words and then converting each letter in each word to lowercase. The first method is expressed by words . map toLower. Give a similar expression for the second method.
+
+\subsubsection*{Answers to Exercise D}
+\begin{lstlisting}
+map (map toLower) . words
+\end{lstlisting}
+\subsection{Exercise E}
+
+An operator $\oplus$ is said to be associative if $x \oplus (y \oplus z) = (x \oplus y) \oplus z$. Is numerical addition associative? Is list concatenation associative? Is functional composition associative? Give an example of an operator on numbers that is not associative.
+
+An element e is said to be an identity element of $\oplus$ if $x\oplus e = e \oplus x = x$ for all x. What are the identity elements of addition, concatenation and functional composition?
+
+\subsubsection*{Answers to Exercise E}
+
+Addition and contatenation are assosiative, function composition is not. An example is division.
+
+The identity element of addition is 0, of concatenation the empty list and the id function of composition.
+
+\subsection{Exercise F}
+
+My wife has a book with the title
+\begin{lstlisting}
+EHT CDOORRSSW AAAGMNR ACDIINORTY.
+\end{lstlisting}
+
+It contains lists of entries like this:
+
+\begin{lstlisting}
+6-letter words
+
+--------------
+
+... 
+eginor: ignore,region
+eginrr: ringer
+
+eginrs: resign,signer,singer
+
+...
+\end{lstlisting}
+Yes, it is an anagram dictionary. The letters of the anagrams are sorted and the results are stored in dictionary order. Associated with each anagram are the English words with the same letters. Describe how you would go about designing a function
+
+\begin{lstlisting}
+anagrams :: Int -> [Word] -> String
+\end{lstlisting}
+so that anagrams n takes a list of English words in alphabetical order, extracts just the n-letter words and produces a string that, when displayed, gives a list of the anagram entries for the n-letter words. You are not expected to be able to define the various functions; just give suitable names and types and describe what each of them is supposed to do.
+
+
+\subsubsection*{Answers to Exercise F}
+
+\begin{lstlisting}
+ concat . map showEntries  . map lookup . filter (nletters n)
+\end{lstlisting}
+
+\subsection{Exercise G}
+
+Let's end with a song:
+
+One man went to mow
+
+Went to mow a meadow
+
+One man and his dog
+
+Went to mow a meadow
+
+Two men went to mow
+
+Went to mow a meadow
+
+Two men, one man and his dog
+
+Went to mow a meadow
+
+Three men went to mow
+
+Went to mow a meadow
+
+Three men, two men, one man and his dog
+
+Went to mow a meadow
+
+Write a Haskell function song :: Int -> String so that song n is the song when there are n men. Assume $n<10$.
+
+To print the song, type for example
+\begin{lstlisting}
+ghci> putStrLn (song 5)
+\end{lstlisting}
+
+The function putStrLn will be explained in the following chapter. I suggest starting with
+\begin{lstlisting}
+song n = if n==0 then ""
+
+else song (n-1) ++ "\n" ++ verse n
+
+verse n = line1 n ++ line2 n ++ line3 n ++ line4 n
+
+This defines song recursively.
+\end{lstlisting}
+\subsubsection*{Answers to Exercise G}
+See code in ex01G folder
+
+\section{Chapter 02}
+
+\subsection{Exercise A}
+On the subject of precedence, this question comes from Chris Maslanka’s puzzle page in the Guardian newspaper:
+
+‘Is a half of two plus two equal to two or three?’
+\subsubsection*{Answers to Exercise A}
+The anwer to the question is "Yes"
+
+\subsection{Exercise B}
+
+Some of the following expressions are not syntactically correct, while others are syntactically correct but do not have sensible types. Some are well-formed. Which is which? In the case of a well-formed expression, give a suitable type. Assume double :: Int -> Int. I suggest you don’t use a computer to check your answers, but if you do, be prepared for some strange error messages.
+
+The expressions are:
+
+\begin{lstlisting}
+[0,1)
+double -3
+double (-3)
+double double 0
+if 1==0 then 2==1
+"++" == "+" ++ "+"
+[(+),(-)]
+[[],[[]],[[[]]]]
+concat ["tea","for",'2']
+concat ["tea","for","2"]
+\end{lstlisting}
+\subsubsection*{Answers to Exercise B}
+
+\begin{lstlisting}
+[0,1), list terminated with ) instead of ']'
+double -3, negative numbers have to placed into brackets. 
+double (-3) :: Int
+double double 0, missing parentesis,
+if 1==0 then 2==1, no expression, else part is missing
+"++" == "+" ++ "+" :: Bool
+[(+),(-)], functions cannot be printed
+[[],[[]],[[[]]]] :: [[[[a]]]]
+concat ["tea","for",'2'], last entry of list has wront type (Char)
+concat ["tea","for","2"] :: String
+\end{lstlisting}
+
+\subsection{Exercise C}
+
+In the good old days, one could write papers with titles such as
+
+‘The morphology of prex – an essay in meta-algorithmics’
+
+These days, journals seem to want all words capitalised:
+
+‘The Morphology Of Prex – An Essay In Meta-algorithmics’
+
+Write a function modernise :: String -> String which ensures that paper titles are capitalised as above. Here are some helpful questions to answer first:
+
+\begin{enumerate}
+\item The function toLower :: Char -> Char converts a letter to lowercase. What do you think is the name of the prelude function that converts a letter to uppercase?
+
+\item The function words :: String -> [Word] was used in the previous chapter. What do you think the prelude function
+\begin{lstlisting}
+unwords :: [Word] -> String
+\end{lstlisting}
+does? Hint: which, if either, of the following equations should hold?
+\begin{lstlisting}
+words . unwords = id
+unwords . words = id
+\end{lstlisting}
+\item The function head :: [a] -> a returns the head of a nonempty list, and tail :: [a] -> [a] returns the list that remains when the head is removed. Suppose a list has head x and tail xs. How would you reconstruct the list?
+\end{enumerate}
+
+\subsubsection*{Answers to Exercise C}
+See code in ex02C folder
+\subsection{Exercise D}
+Beaver is an eager evaluator, while Susan is a lazy one.1 How many times would Beaver evaluate f in computing head (map f xs) when xs is a list of length n? How many times would Susan? What alternative to head . map f would Beaver prefer?
+
+The function filter p filters a list, retaining only those elements that satisfy the boolean test p. The type of filter is
+\begin{lstlisting}
+filter :: (a -> Bool) -> [a] -> [a]
+\end{lstlisting}
+Susan would happily use head . filter p for a function that finds the first element of a list satisfying p. Why would Beaver not use the same expression?
+
+Instead, Beaver would probably define something like
+\begin{lstlisting}
+first :: (a -> Bool) -> [a] -> a
+first p xs | null xs = error "Empty list"
+	| p x = ...
+	| otherwise = ...
+	where x = head xs
+\end{lstlisting}
+
+The function null returns True on an empty list, and False otherwise. When evaluated, the expression error message stops execution and prints the string message at the terminal, so its value is $\bot$. Complete the right-hand side of Beaver’s definition.
+
+\subsubsection*{Answers to Exercise D}
+
+Beaver would execute f n time, Susan only one time. To improve Beavers code he should use f . head.
+
+\begin{lstlisting}
+first :: (a -> Bool) -> [a] -> a
+first p xs | null xs = error "Empty list"
+	| p x = x
+	| otherwise = first p (tail xs)
+	where x = head xs
+\end{lstlisting}
+
+\subsection{Exercise E}
+
+The type Maybe is declared in the standard prelude as follows:
+
+\begin{lstlisting}
+data Maybe a = Nothing | Just a
+deriving (Eq, Ord)
+\end{lstlisting}
+
+This declaration uses a deriving clause. Haskell can automatically generate instances of some standard type classes for some data declarations. In the present case the deriving clause means that we don’t have to go through the tedium of writing
+
+\begin{lstlisting}
+instance (Eq a) => Eq (Maybe a)
+Nothing == Nothing = True
+Nothing == Just y= False
+Just x == Nothing= False
+Just x == Just y= (x == y)
+instance (Ord a) => Ord (Maybe a)
+Nothing <= Nothing = True
+Nothing <= Just y= True
+Just x <= Nothing= False
+Just x <= Just y= (x <= y)
+\end{lstlisting}
+The reason why Nothing is declared to be less than Just y is simply because the constructor Nothing comes before the constructor Just in the data declaration for Maybe.
+
+The reason why the Maybe type is useful is that it provides a systematic way of handling failure. Consider again the function
+\begin{lstlisting}
+first p = head . filter p
+\end{lstlisting}
+
+of the previous exercise. Both Eager Beaver and Lazy Susan produced versions of this function that stopped execution and returned an error message when first p was applied to the empty list. That’s not very satisfactory. Much better is to define
+
+\begin{lstlisting}
+first :: (a -> Bool) -> [a] -> Maybe a
+\end{lstlisting}
+
+Now failure is handled gracefully by returning Nothing if there is no element of the list that satisfies the test.
+
+Give a suitable definition of this version of first.
+
+Finally, count the number of functions with type Maybe a $->$ Maybe a.
+
+\subsubsection*{Answers to Exercise E}
+\begin{lstlisting}
+first :: (a -> Bool) -> [a] -> Maybe a
+first p xs = if null xs then Nothing else  Just $ head . filter p $ xs
+\end{lstlisting}
+
+\subsection{Exercise F}
+
+Here is a function for computing x to the power n, where $n >= 0$:
+
+\begin{lstlisting}
+exp :: Integer -> Integer -> Integer
+exp x n | n == 0= 1
+| n == 1= x
+| otherwise = x*exp x (n-1)
+\end{lstlisting}
+
+How many multiplications does it take to evaluate exp x n? Dick, a clever programmer, claims he can compute exp x n with far fewer multiplications:
+
+\begin{lstlisting}
+exp x n | n == 0= 1
+| n == 1 = x
+| even n = ...
+| odd n= ...
+\end{lstlisting}
+
+Fill in the dots and say how many multiplications it takes to evaluate the expression exp x n by Dick’s method, assuming $2^p <= n < 2^{p+1}$.
+\subsubsection*{Answers to Exercise F}
+
+\begin{lstlisting}
+exp x n | n == 0= 1
+| n == 1  = x
+| even n  = e xp x (div n 2) ^ 2
+| odd n   = x * myExp x (div (n-1) 2) ^ 2
+\end{lstlisting}
+
+$log_2 n$ multiplications are needed by this solution 
+
+
+\subsection{Exercise G}
+
+Suppose a date is represented by three integers (day, month, year). Define a function showDate :: Date -> String so that, for example,
+\begin{lstlisting}
+showDate (10,12,2013) = "10th December, 2013"
+showDate (21,11,2020) = "21st November, 2020"
+\end{lstlisting}
+
+You need to know that Int is a member of the type class Show, so that show n produces a string that is the decimal representation of the integer n.
+
+\subsubsection*{Answers to Exercise G}
+See code in ex02G folder
+
+
+\subsection{Exercise H}
+
+The credit card company Foxy issues cards with ten-digit card-identification numbers (CINs). The first eight digits are arbitrary but the number formed from the last two digits is a checksum equal to the sum of the first eight digits. For example, “6324513428” is a valid CIN because the sum of the first eight digits is 28.
+
+Construct a function addSum :: CIN -> CIN that takes a string consisting of eight digits and returns a string of ten digits that includes the checksum. Thus CIN is a type synonym for String, though restricted to strings of digits. (Note that Haskell type synonyms cannot enforce type constraints such as this.) You will need to convert between a digit character and the corresponding number. One direction is easy: just use show. The other direction is also fairly easy:
+
+\begin{lstlisting}
+getDigit :: Char -> Int
+getDigit c = read [c]
+\end{lstlisting}
+
+The function read is a method of the type class Read and has type
+
+\begin{lstlisting}
+read :: Read a => String -> a
+\end{lstlisting}
+
+The type class Read is dual to Show and read is dual to show. For example,
+\begin{lstlisting}
+ghci> read "123" :: Int
+123
+ghci> read "123" :: Float
+123.0
+\end{lstlisting}
+
+
+The function read has to be supplied with the type of the result. One can always add type annotations to expressions in this way.
+
+Now construct a function valid :: CIN -> Bool that checks whether an identification number is valid. The function take might prove useful.
+
+\subsubsection*{Answers to Exercise H}
+See code in ex02H folder
+\subsection{Exercise I}
+By definition a palindrome is a string that, ignoring punctuation symbols, blank characters and whether or not a letter is in lowercase or uppercase, reads the same forwards and backwards. Write an interactive program
+
+\begin{lstlisting}
+palindrome :: IO ()
+\end{lstlisting}
+which, when run, conducts an interactive session, such as
+
+\begin{lstlisting}
+ghci> palindrome
+Enter a string:
+Madam, I'm Adam
+Yes!
+ghci> palindrome
+Enter a string:
+A Man, a plan, a canal - Suez!
+No!
+ghci> palindrome
+Enter a string:
+Doc, note I dissent. A fast never prevents a fatness.
+I diet on cod.
+Yes!
+\end{lstlisting}
+The function isAlpha :: Char -> Bool tests whether a character is a letter, and reverse :: [a] -> [a] reverses a list. The function reverse is provided in the standard prelude and isAlpha can be imported from the library Data.Char.
+
+\subsubsection*{Answers to Exercise I}
+See code in ex02I folder.
+
+\section{Chapter 03}
+
+\subsection{Exercise A}
+Which of the following expressions denote 1?
+\begin{lstlisting}
+-2 + 3, 3 + -2, 3 + (-2), subtract 2 3, 2 + subtract 3
+\end{lstlisting}
+In the standard prelude there is a function flip defined by
+\begin{lstlisting}
+flip f x y = f y x
+\end{lstlisting}
+Express subtract using flip.
+\subsubsection*{Answers to Exercise A}
+Only $-2 + 3$, $3 + (-1)$ and subtract 2 3 denote 1.
+
+\begin{lstlisting}
+subtract = flip (-)
+\end{lstlisting}
+\subsection{Exercise B}
+Haskell provides no fewer than three ways to define exponentiation:
+
+\begin{lstlisting}
+(^):: (Num a, Integral b) => a -> b -> a
+(^^) :: (Fractional a, Integral b) => a -> b -> a
+(**) :: (Floating a) => a -> a -> a
+\end{lstlisting}
+
+The operation (\textasciicircum) raises any number to a nonnegative integral power; (\textasciicircum\textasciicircum) raises any number to any integral power (including negative integers); and ($**$) takes two fractional arguments. The definition of (\textasciicircum) basically follows Dick’s method of the previous chapter (see Exercise E). How would you define (\textasciicircum\textasciicircum)?
+
+\subsubsection*{Answers to Exercise B}
+I would define:
+\begin{lstlisting}
+(^^) :: (Fractional a, Integral b) => a -> b -> a
+(^^) x n  = if n >= 0 then x ^ n else 1 / x ^ (-n)
+\end{lstlisting}
+
+\subsection{Exercise C}
+Could you define div in the following way?
+\begin{lstlisting}
+div :: Integral a => a -> a -> a
+div x y = floor (x/y)
+\end{lstlisting}
+\subsubsection*{Answers to Exercise C}
+Yes, you can
+
+\subsection{Exercise D}
+Consider again Clever Dick’s solution for computing floor:
+
+\begin{lstlisting}
+floor :: Float -> Integer
+floor = read . (takeWhile (/= '.') . show
+\end{lstlisting}
+
+Why doesn’t it work?
+
+Consider the following mini-interaction with GHCi:
+
+\begin{lstlisting}
+ghci> 12345678.0 :: Float
+1.2345678e7
+\end{lstlisting}
+
+Haskell allows the use of so-called scientific notation, also called exponent notation, to describe certain floating-point numbers. For example the number above denotes $1.2345678 * 10^7$. When the number of digits of a floating-point number is sufficiently large, the number is printed in this notation. Now give another reason why Clever Dick’s solution doesn’t work.
+\subsubsection*{Answers to Exercise D}
+
+It does not work for all negative numbers e.g. floor (-2.34) should be -3.
+
+\subsection{Exercise E}
+The function isqrt :: Float -> Integer returns the floor of the square root of a (nonnegative) number. Following the strategy of Section 3.3, construct an implementation of isqrt x that takes time proportional to logx steps.
+
+\subsubsection*{Answers to Exercise E}
+See code in ex03E folder.
+
+
+\subsection{Exercise F}
+
+\subsubsection*{Answers to Exercise F}
+\subsection{Exercise G}
+
+\subsubsection*{Answers to Exercise G}
+\subsection{Exercise H}
+
+\subsubsection*{Answers to Exercise H}
+\subsection{Exercise I}
+
+\subsubsection*{Answers to Exercise I}
+\subsection{Exercise J}
+
+\subsubsection*{Answers to Exercise J}
+\subsection{Exercise K}
+
+\subsubsection*{Answers to Exercise K}
+
+
+\section{Chapter 04}
+
+\subsection{Exercise A}
+
+\subsubsection*{Answers to Exercise A}
+
+\subsection{Exercise B}
+
+\subsubsection*{Answers to Exercise B}
+
+\subsection{Exercise C}
+
+\subsubsection*{Answers to Exercise C}
+
+\subsection{Exercise D}
+
+\subsubsection*{Answers to Exercise D}
+\subsection{Exercise E}
+
+\subsubsection*{Answers to Exercise E}
+\subsection{Exercise F}
+
+\subsubsection*{Answers to Exercise F}
+\subsection{Exercise G}
+
+\subsubsection*{Answers to Exercise G}
+\subsection{Exercise H}
+
+\subsubsection*{Answers to Exercise H}
+\subsection{Exercise I}
+
+\subsubsection*{Answers to Exercise I}
+\subsection{Exercise J}
+
+\subsubsection*{Answers to Exercise J}
+\subsection{Exercise K}
+
+\subsubsection*{Answers to Exercise K}
+
+
+\section{Chapter 05}
+
+\subsection{Exercise A}
+
+\subsubsection*{Answers to Exercise A}
+
+\subsection{Exercise B}
+
+\subsubsection*{Answers to Exercise B}
+
+\subsection{Exercise C}
+
+\subsubsection*{Answers to Exercise C}
+
+\subsection{Exercise D}
+
+\subsubsection*{Answers to Exercise D}
+\subsection{Exercise E}
+
+\subsubsection*{Answers to Exercise E}
+\subsection{Exercise F}
+
+\subsubsection*{Answers to Exercise F}
+\subsection{Exercise G}
+
+\subsubsection*{Answers to Exercise G}
+\subsection{Exercise H}
+
+\subsubsection*{Answers to Exercise H}
+\subsection{Exercise I}
+
+\subsubsection*{Answers to Exercise I}
+\subsection{Exercise J}
+
+\subsubsection*{Answers to Exercise J}
+\subsection{Exercise K}
+
+\subsubsection*{Answers to Exercise K}
+
+
+\section{Chapter 06}
+
+\subsection{Exercise A}
+
+\subsubsection*{Answers to Exercise A}
+
+\subsection{Exercise B}
+
+\subsubsection*{Answers to Exercise B}
+
+\subsection{Exercise C}
+
+\subsubsection*{Answers to Exercise C}
+
+\subsection{Exercise D}
+
+\subsubsection*{Answers to Exercise D}
+\subsection{Exercise E}
+
+\subsubsection*{Answers to Exercise E}
+\subsection{Exercise F}
+
+\subsubsection*{Answers to Exercise F}
+\subsection{Exercise G}
+
+\subsubsection*{Answers to Exercise G}
+\subsection{Exercise H}
+
+\subsubsection*{Answers to Exercise H}
+\subsection{Exercise I}
+
+\subsubsection*{Answers to Exercise I}
+\subsection{Exercise J}
+
+\subsubsection*{Answers to Exercise J}
+\subsection{Exercise K}
+
+\subsubsection*{Answers to Exercise K}
+
+
+\section{Chapter 07}
+
+\subsection{Exercise A}
+
+\subsubsection*{Answers to Exercise A}
+
+\subsection{Exercise B}
+
+\subsubsection*{Answers to Exercise B}
+
+\subsection{Exercise C}
+
+\subsubsection*{Answers to Exercise C}
+
+\subsection{Exercise D}
+
+\subsubsection*{Answers to Exercise D}
+\subsection{Exercise E}
+
+\subsubsection*{Answers to Exercise E}
+\subsection{Exercise F}
+
+\subsubsection*{Answers to Exercise F}
+\subsection{Exercise G}
+
+\subsubsection*{Answers to Exercise G}
+\subsection{Exercise H}
+
+\subsubsection*{Answers to Exercise H}
+\subsection{Exercise I}
+
+\subsubsection*{Answers to Exercise I}
+\subsection{Exercise J}
+
+\subsubsection*{Answers to Exercise J}
+\subsection{Exercise K}
+
+\subsubsection*{Answers to Exercise K}
+
+
+\section{Chapter 08}
+
+\subsection{Exercise A}
+
+\subsubsection*{Answers to Exercise A}
+
+\subsection{Exercise B}
+
+\subsubsection*{Answers to Exercise B}
+
+\subsection{Exercise C}
+
+\subsubsection*{Answers to Exercise C}
+
+\subsection{Exercise D}
+
+\subsubsection*{Answers to Exercise D}
+\subsection{Exercise E}
+
+\subsubsection*{Answers to Exercise E}
+\subsection{Exercise F}
+
+\subsubsection*{Answers to Exercise F}
+\subsection{Exercise G}
+
+\subsubsection*{Answers to Exercise G}
+\subsection{Exercise H}
+
+\subsubsection*{Answers to Exercise H}
+\subsection{Exercise I}
+
+\subsubsection*{Answers to Exercise I}
+\subsection{Exercise J}
+
+\subsubsection*{Answers to Exercise J}
+\subsection{Exercise K}
+
+\subsubsection*{Answers to Exercise K}
+
+
+\section{Chapter 09}
+
+\subsection{Exercise A}
+
+\subsubsection*{Answers to Exercise A}
+
+\subsection{Exercise B}
+
+\subsubsection*{Answers to Exercise B}
+
+\subsection{Exercise C}
+
+\subsubsection*{Answers to Exercise C}
+
+\subsection{Exercise D}
+
+\subsubsection*{Answers to Exercise D}
+\subsection{Exercise E}
+
+\subsubsection*{Answers to Exercise E}
+\subsection{Exercise F}
+
+\subsubsection*{Answers to Exercise F}
+\subsection{Exercise G}
+
+\subsubsection*{Answers to Exercise G}
+\subsection{Exercise H}
+
+\subsubsection*{Answers to Exercise H}
+\subsection{Exercise I}
+
+\subsubsection*{Answers to Exercise I}
+\subsection{Exercise J}
+
+\subsubsection*{Answers to Exercise J}
+\subsection{Exercise K}
+
+\subsubsection*{Answers to Exercise K}
+
+
+\section{Chapter 10}
+
+\subsection{Exercise A}
+
+\subsubsection*{Answers to Exercise A}
+
+\subsection{Exercise B}
+
+\subsubsection*{Answers to Exercise B}
+
+\subsection{Exercise C}
+
+\subsubsection*{Answers to Exercise C}
+
+\subsection{Exercise D}
+
+\subsubsection*{Answers to Exercise D}
+\subsection{Exercise E}
+
+\subsubsection*{Answers to Exercise E}
+\subsection{Exercise F}
+
+\subsubsection*{Answers to Exercise F}
+\subsection{Exercise G}
+
+\subsubsection*{Answers to Exercise G}
+\subsection{Exercise H}
+
+\subsubsection*{Answers to Exercise H}
+\subsection{Exercise I}
+
+\subsubsection*{Answers to Exercise I}
+\subsection{Exercise J}
+
+\subsubsection*{Answers to Exercise J}
+\subsection{Exercise K}
+
+\subsubsection*{Answers to Exercise K}
+
+
+\section{Chapter 11}
+
+\subsection{Exercise A}
+
+\subsubsection*{Answers to Exercise A}
+
+\subsection{Exercise B}
+
+\subsubsection*{Answers to Exercise B}
+
+\subsection{Exercise C}
+
+\subsubsection*{Answers to Exercise C}
+
+\subsection{Exercise D}
+
+\subsubsection*{Answers to Exercise D}
+\subsection{Exercise E}
+
+\subsubsection*{Answers to Exercise E}
+\subsection{Exercise F}
+
+\subsubsection*{Answers to Exercise F}
+\subsection{Exercise G}
+
+\subsubsection*{Answers to Exercise G}
+\subsection{Exercise H}
+
+\subsubsection*{Answers to Exercise H}
+\subsection{Exercise I}
+
+\subsubsection*{Answers to Exercise I}
+\subsection{Exercise J}
+
+\subsubsection*{Answers to Exercise J}
+\subsection{Exercise K} 
+\subsubsection*{Answers to Exercise K}
+
+\section{Chapter 12}
+
+\subsection{Exercise A}
+
+\subsubsection*{Answers to Exercise A}
+
+\subsection{Exercise B}
+
+\subsubsection*{Answers to Exercise B}
+
+\subsection{Exercise C}
+
+\subsubsection*{Answers to Exercise C}
+
+\subsection{Exercise D}
+
+\subsubsection*{Answers to Exercise D}
+\subsection{Exercise E}
+
+\subsubsection*{Answers to Exercise E}
+\subsection{Exercise F}
+
+\subsubsection*{Answers to Exercise F}
+\subsection{Exercise G}
+
+\subsubsection*{Answers to Exercise G}
+\subsection{Exercise H}
+
+\subsubsection*{Answers to Exercise H}
+\subsection{Exercise I}
+
+\subsubsection*{Answers to Exercise I}
+\subsection{Exercise J}
+
+\subsubsection*{Answers to Exercise J}
+\subsection{Exercise K}
+
+\subsubsection*{Answers to Exercise K}
+
+
+
+\end{document}
