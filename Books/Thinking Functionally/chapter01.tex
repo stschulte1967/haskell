@@ -575,17 +575,24 @@ Haskell allows the use of so-called scientific notation, also called exponent no
 It does not work for all negative numbers e.g. floor (-2.34) should be -3.
 
 \subsection{Exercise E}
-The function isqrt :: Float -> Integer returns the floor of the square root of a (nonnegative) number. Following the strategy of Section 3.3, construct an implementation of isqrt x that takes time proportional to logx steps.
+The function isqrt :: Float $\rightarrow$ Integer returns the floor of the square root of a (nonnegative) number. Following the strategy of Section 3.3, construct an implementation of isqrt x that takes time proportional to $\log x$ steps.
 
 \subsubsection*{Answers to Exercise E}
 See code in ex03E folder.
 
 
 \subsection{Exercise F}
+Haskell provides a function $sqrt :: Floating\; a => a -> a$ that gives a reasonable approximation to the square root of a (nonnegative) number. But, let’s define our own version. If $y$ is an approximation to $\sqrt{x}$ then so is $x/y$. Moreover, either $y\leq\sqrt{x}\leq x/y$ or $x/q \leq \sqrt{x} \leq y$ What is a better approximation to image than either $y$ or $x/y$? (Yes, you have just rediscovered Newton’s method for finding square roots.)
 
+The only remaining problem is to decide when an approximation $y$ is good enough. One possible test is $|y^2 - x| < \epsilon$, where $|x|$ returns the absolute value of $x$ and $\epsilon$ is a suitably small number. This test guarantees an absolute error of at most $\epsilon$. Another test is $|y^2 - x| < \epsilon * x$, which guarantees a relative error of at most $\epsilon$. Assuming that numbers of type Float are accurate only to six significant figures, which of these two is the more sensible test, and what is a sensible value for $\epsilon$?
+
+Hence construct a definition of $sqrt$.
 \subsubsection*{Answers to Exercise F}
 \subsection{Exercise G}
-
+Give an explicit instance of Nat as a member of the type class Ord. Hence construct a definition of
+\begin{lstlisting}
+divMod :: Nat -> Nat -> (Nat,Nat)
+\end{lstlisting}
 \subsubsection*{Answers to Exercise G}
 \subsection{Exercise H}
 
