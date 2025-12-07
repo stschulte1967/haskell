@@ -1,5 +1,5 @@
-input = "5"
+fn n = take n [1,2..]
 
-solve n = take n [0..]
-
-main = print . solve . read $ input
+main = do
+    n <- readLn :: IO Int
+    print (fn(n))

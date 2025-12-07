@@ -1,5 +1,8 @@
-input = "2 5 3 4 6 7 9 8"
+f :: [Int] -> [Int]
+f (_:x:xs) = x : f xs
+f _ = []
 
-solve = (unlines . map (\(a, b) -> b) . filter (\(a,b) -> mod a 2 == 1) . zip [0..] . words)
-
-main = putStrLn $ solve input
+-- This part deals with the Input and Output and can be used as it is. Do not modify it.
+main = do
+    inputdata <- getContents
+    mapM_ (putStrLn. show). f. map read. lines $ inputdata

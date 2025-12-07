@@ -1,5 +1,7 @@
-input = "2 5 1 4 3 7 8 6 0 9"
+len :: [a] -> Int
+len [] = 0
+len (_:xs) = 1 + len xs 
 
-solve = length 
-
-main = (putStrLn . show . solve . words) input
+main = do
+    inputdata <- getContents
+    putStrLn $ show $ len $ map (read :: String -> Int) $ lines inputdata
