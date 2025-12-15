@@ -1,6 +1,8 @@
-input = "2 -4 3 -1 23 -4 -54"
+-- Enter your code here. Read input from STDIN. Print output to STDOUT
 
-solve :: [Int] -> [Int]
-solve = map (\x -> if x < 0 then negate x else x)
+f = map abs
 
-main = (putStrLn . unlines . map show . solve . map read . words) input
+-- This section handles the Input/Output and can be used as it is. Do not modify it.
+main = do
+    inputdata <- getContents
+    mapM_ putStrLn $ map show $ f $ map (read :: String -> Int) $ lines inputdata

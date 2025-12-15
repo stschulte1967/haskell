@@ -4,11 +4,11 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 
-name:           ex03E
+name:           ex03F
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/stschulte1967/ex03E#readme>
-homepage:       https://github.com/stschulte1967/ex03E#readme
-bug-reports:    https://github.com/stschulte1967/ex03E/issues
+description:    Please see the README on GitHub at <https://github.com/stschulte1967/ex03F#readme>
+homepage:       https://github.com/stschulte1967/ex03F#readme
+bug-reports:    https://github.com/stschulte1967/ex03F/issues
 author:         Stephan Schulte
 maintainer:     stephan.schulte@gmail.com
 copyright:      MIT
@@ -21,15 +21,15 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/stschulte1967/ex03E
+  location: https://github.com/stschulte1967/ex03F
 
 library
   exposed-modules:
       Lib
   other-modules:
-      Paths_ex03E
+      Paths_ex03F
   autogen-modules:
-      Paths_ex03E
+      Paths_ex03F
   hs-source-dirs:
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
@@ -37,31 +37,31 @@ library
       base >=4.7 && <5
   default-language: Haskell2010
 
-executable ex03E-exe
+executable ex03F-exe
   main-is: Main.hs
   other-modules:
-      Paths_ex03E
+      Paths_ex03F
   autogen-modules:
-      Paths_ex03E
+      Paths_ex03F
   hs-source-dirs:
       app
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
-    , ex03E
+    , ex03F
   default-language: Haskell2010
 
-test-suite ex03E-test
+test-suite ex03F-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_ex03E
+      Paths_ex03F
   autogen-modules:
-      Paths_ex03E
+      Paths_ex03F
   hs-source-dirs:
       test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
-    , ex03E
+    , ex03F
   default-language: Haskell2010

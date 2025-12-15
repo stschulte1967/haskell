@@ -1,5 +1,5 @@
-input = "19 22 3 28 26 17 18 4 28 0"
+rev = reverse
 
-solve = reverse 
-
-main = (putStrLn . unlines . solve . words) input
+main = do
+    inputdata <- getContents
+    mapM_ putStrLn $ map show $ rev $ map (read :: String -> Int) $ lines inputdata

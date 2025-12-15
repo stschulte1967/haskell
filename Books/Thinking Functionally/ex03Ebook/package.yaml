@@ -1,6 +1,6 @@
-name:                ex03E
+name:                ex03Ebook
 version:             0.1.0.0
-github:              "stschulte1967/ex03E"
+github:              "stschulte1967/ex03Ebook"
 license:             BSD-3-Clause
 author:              "Stephan Schulte"
 maintainer:          "stephan.schulte@gmail.com"
@@ -17,7 +17,7 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/stschulte1967/ex03E#readme>
+description:         Please see the README on GitHub at <https://github.com/stschulte1967/ex03Ebook#readme>
 
 dependencies:
 - base >= 4.7 && < 5
@@ -37,7 +37,7 @@ library:
   source-dirs: src
 
 executables:
-  ex03E-exe:
+  ex03Ebook-exe:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -45,10 +45,10 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - ex03E
+    - ex03Ebook
 
 tests:
-  ex03E-test:
+  ex03Ebook-test:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
@@ -56,4 +56,4 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - ex03E
+    - ex03Ebook
