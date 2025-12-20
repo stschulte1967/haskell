@@ -1,5 +1,6 @@
-input = "3 2 4 6 5 7 8 0 1"
+f = sum . filter odd 
 
-solve = sum . filter (\n -> mod n 2 == 1)
-
-main = putStrLn . show . solve . map read . words $ input
+-- This part handles the Input/Output and can be used as it is. Do not change or modify it.
+main = do
+    inputdata <- getContents
+    putStrLn $ show $ f $ map (read :: String -> Int) $ lines inputdata

@@ -1,4 +1,4 @@
-module Main where
+module Countdown where
 
 main = print $ countdown 10
 

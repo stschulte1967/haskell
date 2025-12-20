@@ -1,11 +1,21 @@
-testInput = "4"
+{-# LANGUAGE FlexibleInstances, UndecidableInstances, DuplicateRecordFields #-}
 
-solve input = let
-                n = read input
-              in
-                (unlines . take n . repeat) "Hello World"
+module Main where
 
-main = putStrLn (solve testInput)
+import Control.Monad
+import Data.Array
+import Data.Bits
+import Data.List
+import Data.Set
+import Debug.Trace
+import System.Environment
+import System.IO
+import System.IO.Unsafe
 
--- submitted solution:
--- interact $ solve
+
+
+main :: IO()
+main = do
+    n <- readLn :: IO Int
+
+    putStrLn $ unlines (replicate n "Hello World")

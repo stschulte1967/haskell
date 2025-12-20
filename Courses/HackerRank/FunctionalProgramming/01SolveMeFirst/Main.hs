@@ -1,8 +1,7 @@
-testdata = "2 3"
+solveMeFirst a b = a + b
 
-main =  print (solve testdata)
-    
-solve = show . sum . map read . words
-
--- commited solution: 
---   main = interact $ show . sum . map read . words
+main = do
+    val1 <- readLn
+    val2 <- readLn
+    let sum = solveMeFirst val1 val2
+    print sum
